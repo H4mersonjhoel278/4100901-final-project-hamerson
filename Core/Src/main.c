@@ -22,7 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
-
+#include <string.h>
 #include "lock.h"
 #include "keypad.h"
 /* USER CODE END Includes */
@@ -49,7 +49,14 @@ RTC_HandleTypeDef hrtc;
 
 /* USER CODE BEGIN PV */
 volatile uint16_t keypad_event = KEYPAD_EVENT_NONE;
-
+//Definición de la estructura Command:
+//Define una estructura llamada Command que tiene dos miembros:
+//id (entero) y params (cadena de caracteres de longitud máxima 256).
+/*typedef struct {
+    int id;               // Identificador único del comando
+    char params[256];     // Parámetros asociados al comando
+} Command;
+*/
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -84,12 +91,39 @@ void keypad_it_callback(uint16_t pin)
 {
 	keypad_event = pin;
 }
+//Definición de la función processCommand:
+//Esta función toma un puntero a una estructura Command como argumento
+//y utiliza un switch para ejecutar diferentes lógicas según el valor de id en la estructura.
+//En este caso, imprime un mensaje diferente para los comandos 1 y 2,
+//y un mensaje genérico para comandos no reconocidos.
+//void processCommand(Command *cmd) {
+    /*switch (cmd->id) {
+        case 1:
+            printf("Procesando Comando 1 con parámetros: %s\n", cmd->params);
+            break;
+        case 2:
+            printf("Procesando Comando 2 con parámetros: %s\n", cmd->params);
+            break;
+        default:
+            printf("Comando no reconocido\n");
+    }
+}
+//Definición de la función parseMessage:
+//La función parseMessage toma una cadena de caracteres (message) como entrada.
+//Utiliza sscanf para analizar la cadena y extraer el id y los params (parámetros) de un comando.
+//Luego, llama a la función processCommand para procesar el comando.
+void parseMessage(char *message) {
+    Command cmd;
+    sscanf(message, "%d,%s", &cmd.id, cmd.params);
+    processCommand(&cmd);
+}*/
 /* USER CODE END 0 */
 
 /**
   * @brief  The application entry point.
   * @retval int
   */
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
