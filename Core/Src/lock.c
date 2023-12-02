@@ -92,7 +92,11 @@ static uint8_t lock_get_password(void)
 	}
 	return 1;
 }
-
+//Función lock_validate_password:
+//Esta función parece validar la contraseña ingresada comparándola con la secuencia de teclas almacenadas en el búfer circular (keypad_rb).
+//Se utiliza ring_buffer_get para obtener la secuencia almacenada en el búfer.
+//Se compara la secuencia con la contraseña almacenada en la variable password.
+//Si la comparación es exitosa, la función retorna 1; de lo contrario, retorna 0.
 static uint8_t lock_validate_password(void)
 {
 	uint8_t sequence[MAX_PASSWORD];
@@ -105,7 +109,10 @@ static uint8_t lock_validate_password(void)
 	}
 	return 0;
 }
-
+//Función lock_update_password:
+//Esta función actualiza la pantalla OLED para solicitar una nueva contraseña utilizando GUI_update_password_init().
+//Luego llama a lock_get_password() para obtener la nueva contraseña.
+//Si la contraseña se ha ingresado correctamente, se enciende un LED con Encender_LED(). Si no, se llama a GUI_locked() y se apaga el LED con Apagar_LED().
 static void lock_update_password(void)
 {
 	if (lock_validate_password() != 0) {
@@ -118,7 +125,11 @@ static void lock_update_password(void)
 		Apagar_LED();
 	}
 }
-
+//Función lock_open_lock:
+//Esta función parece estar relacionada con la apertura del sistema bloqueado.
+//Si la contraseña es válida, se muestra un menú utilizando GUI_Menu() y se enciende un LED.
+//Se obtiene la tecla presionada mediante keypad_run y se retorna 1 si es válida.
+//Si la contraseña no es válida, se llama a GUI_locked(), se apaga el LED y se retorna 0.
 static uint8_t lock_open_lock(void)
 {
 	uint8_t temp=0;
@@ -199,7 +210,11 @@ void lock_keylock(uint8_t key){
 
 }*/
 //static uint8_t current_option = 0;
-
+//Función lock_sequence_handler:
+//Esta función maneja las teclas ingresadas.
+//Si se presiona '*', se llama a lock_update_password().
+//Si se presiona '#', se llama a lock_open_lock().
+//Si se presiona otra tecla, se almacena en el búfer circular.
 void lock_sequence_handler(uint8_t key){
     /*if (key >= '1' && key <= '3') {
         // Cambiar a la opción seleccionada
