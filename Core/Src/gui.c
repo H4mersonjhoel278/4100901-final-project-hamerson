@@ -50,18 +50,7 @@ void GUI_locked(void)
 	//un aviso lijero de que si nunca ingresa la contraseña no abrila el menu
 	ssd1306_WriteString("enter password:", Font_7x10, White);
 
-
-
-	// Muestra las opciones del menú
-	    //ssd1306_SetCursor(30, 25);
-	    //ssd1306_WriteString("1.Opcion 1", Font_6x8, White);
-
-	    //ssd1306_SetCursor(30, 40);
-	    //ssd1306_WriteString("2.Opcion 2", Font_6x8, White);
-
-	    //ssd1306_SetCursor(30, 55);
-	    //ssd1306_WriteString("3.Opcion 3", Font_6x8, White);
-//	ssd1306_DrawBitmap(50, 35, locked, 30, 30, White);
+    ssd1306_DrawBitmap(50, 35, locked, 30, 30, White);
 	ssd1306_UpdateScreen();
 }
 

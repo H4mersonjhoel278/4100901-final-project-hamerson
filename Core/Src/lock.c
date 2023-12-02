@@ -158,6 +158,9 @@ void lock_init(void)
 	ring_buffer_init(&keypad_rb, keypad_buffer, 12);
 	GUI_init();
 }
+//estas opciones se hicieron con la finalidad de que si se entrara a tal opcion haga tal cosa solo para comprobar
+// la idea inicial no era mostrar estos mensajes sino que al entrar en tal opcion
+//se hiciera tal cosa solo para indicar si lo que se estaba haciendo estaba correcto
 void lock_keylock(uint8_t key){
 	while((key == '1')||(key == '2')||(key == '3')){
 		if(key == '1'){
@@ -182,23 +185,73 @@ void lock_keylock(uint8_t key){
 		}
 	}
 }
+/*aqui esta funcion debia cumplir con las espectativas del proyecto osea en la opcion 1, podiamos ingresar a esa opcion y nos mostraba un mensaje el cual
+ * decia ingresar dinero como por ejemplo se digitaba en el display el numero 100 y 200 y eso se
+ * debia guardar en un contador o en una suma total para que se guarde el total que seria 300
+ * en la opcion 2 que era retirar dinero se restaria un numero a el total de la suma de la opcion 1
+ * y en la opcion 3 mostraria el total osea que en la opcion 1 teniamos 300 pero en la opcion dos se
+ * le resto cualquier numero no mayor a el total de la suma , entonces esta debia de mostrarnos el total de todo
+ * osea se sumo 300 y en la opcion 2 se resto 100. entonces en la opcion 3 nos mostraria
+ * 200 que seria el total que tiene disponible
+ * y en esto se basaba el proyecto*/
+//este es un contador para guardar los valores que se dijiten en el keydpad y asi poderlos sumar
+//int suma = 0;
+//esta es la funcion donde digitare o definire que tal opcion me hace tal cosa
 /*void lock_sequence_handler(uint8_t key)
 {
 	if (key == '1') {
 		// Handle option 1
 		ssd1306_SetCursor(20, 25);
 	    ssd1306_WriteString("Bienvenido", Font_6x8, White);
-		// Add your code for option 1 here
+	    ssd1306_WriteString("ingresar dinero:", Font_6x8, White);
+		// Contador para almacenar la suma
+
+        // Leer números desde el teclado y sumarlos al contador
+         char key = keypad.getKey();
+          while (key != '#') { // Suponiendo que '#' es la tecla de confirmación
+         if (key >= '0' && key <= '9') {
+         int numero = key - '0';
+         suma += numero;
+    }
+         key = keypad.getKey();
+  }
+
+  // Mostrar la suma en el OLED
+        ssd1306_SetCursor(20, 40);
+        ssd1306_WriteString("Total: " + String(suma), Font_6x8, White);
+}
+
 	} else if (key == '2') {
-		// Handle option 2
-		ssd1306_SetCursor(10, 25);
-		ssd1306_WriteString("consultar saldo", Font_6x8, White);
-		// Add your code for option 2 here
+		ssd1306_SetCursor(20, 25);
+        ssd1306_WriteString("Retirar dinero:", Font_6x8, White);
+        ssd1306_WriteString("Ingresar contraseña:", Font_6x8, White);
+
+  // Leer números desde el teclado para retirar dinero
+        char key = keypad.getKey();
+        int cantidadRetirar = 0;
+        while (key != '#') { // Suponiendo que '#' es la tecla de confirmación
+        if (key >= '0' && key <= '9') {
+        int numero = key - '0';
+        cantidadRetirar = cantidadRetirar * 10 + numero;
+    }
+        key = keypad.getKey();
+  }
+
+  // Restar la cantidad retirada al total acumulado
+        suma -= cantidadRetirar;
+
+  // Mostrar el resultado en el OLED
+        ssd1306_SetCursor(20, 40);
+        ssd1306_WriteString("Nuevo total: " + String(suma), Font_6x8, White);
+}
+
 	} else if (key == '3') {
-		// Handle option 3
-		ssd1306_SetCursor(10, 25);
-		ssd1306_WriteString("Retirar dinero", Font_6x8, White);
-		// Add your code for option 3 here
+		// Mostrar el total (suma - cantidad retirada en la opción 2) en el OLED
+        ssd1306_SetCursor(20, 25);
+        ssd1306_WriteString("Total considerando retiro:", Font_6x8, White);
+        ssd1306_SetCursor(20, 40);
+        ssd1306_WriteString("Total: " + String(suma), Font_6x8, White);
+}
 	} else if (key == '*') {
 		lock_update_password();
 	} else if (key == '#') {
@@ -209,32 +262,14 @@ void lock_keylock(uint8_t key){
 	}
 
 }*/
-//static uint8_t current_option = 0;
+
 //Función lock_sequence_handler:
 //Esta función maneja las teclas ingresadas.
 //Si se presiona '*', se llama a lock_update_password().
 //Si se presiona '#', se llama a lock_open_lock().
 //Si se presiona otra tecla, se almacena en el búfer circular.
 void lock_sequence_handler(uint8_t key){
-    /*if (key >= '1' && key <= '3') {
-        // Cambiar a la opción seleccionada
-        current_option = key - '0';
-
-        // Agregar código específico para cada opción si es necesario
-        if (current_option == 1) {
-            // Código para la opción 1
-            ssd1306_SetCursor(10, 25);
-            ssd1306_WriteString("Bienvenido", Font_6x8, White);
-        } else if (current_option == 2) {
-            // Código para la opción 2
-            ssd1306_SetCursor(10, 25);
-            ssd1306_WriteString("Consultar saldo", Font_6x8, White);
-        } else if (current_option == 3) {
-            // Código para la opción 3
-            ssd1306_SetCursor(10, 25);
-            ssd1306_WriteString("Retirar dinero", Font_6x8, White);
-        }
-    } */ if (key == '*') {
+    if (key == '*') {
         lock_update_password();
     } else if (key == '#') {
 
