@@ -40,7 +40,7 @@ void GUI_Menu(void)
 // para que inicialmente me muestre el bloqueado
 void GUI_locked(void)
 {
-	/// Llena toda la pantalla de negro para indicar que el sistema está bloqueado.
+	// Llena toda la pantalla de negro para indicar que el sistema está bloqueado.
 	ssd1306_Fill(Black);
 	// Establece la posición del cursor en la pantalla y escribe el texto "Locked" en blanco.
 	ssd1306_SetCursor(45, 5);
@@ -61,7 +61,7 @@ void GUI_locked(void)
 
 	    //ssd1306_SetCursor(30, 55);
 	    //ssd1306_WriteString("3.Opcion 3", Font_6x8, White);
-	ssd1306_DrawBitmap(50, 35, locked, 30, 30, White);
+//	ssd1306_DrawBitmap(50, 35, locked, 30, 30, White);
 	ssd1306_UpdateScreen();
 }
 

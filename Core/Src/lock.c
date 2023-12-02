@@ -168,7 +168,7 @@ void lock_keylock(uint8_t key){
 		}
 		else if(key =='2'){
 			ssd1306_SetCursor(10, 25);
-			ssd1306_WriteString("HOLA", Font_16x26, White);
+			ssd1306_WriteString("HOLA", Font_7x10, White);
 			ssd1306_DrawBitmap(50, 35, mano, 30, 30, White);
 			HAL_Delay(1000);
 		}
